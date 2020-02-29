@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('hitung.create');
-});
+Route::get('/', "HitungController@index");
 
-Route::get('/hitung/create', function () {
-    return view('hitung.create');
-});
+Route::get('/hitung',                   "HitungController@index");
+Route::get('/hitung/create',            "HitungController@create");
+Route::post('/hitung/create',           "HitungController@store");
+Route::get('/hitung/{id}',              "HitungController@show");
+Route::get('/hitung/cetak/{id}',      "HitungController@cetak");
+
+// api
+Route::get('/api2/pegawai/{id}',"ApiController@pegawai");
