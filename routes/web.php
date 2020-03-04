@@ -16,8 +16,9 @@ Route::get('/', "HitungController@index");
 Route::get('/hitung',                   "HitungController@index");
 Route::get('/hitung/create',            "HitungController@create");
 Route::post('/hitung/create',           "HitungController@store");
+Route::get('/hitung/cetak_semua',       "HitungController@cetakSemua");
 Route::get('/hitung/{id}',              "HitungController@show");
-Route::get('/hitung/cetak/{id}',      "HitungController@cetak");
+Route::get('/hitung/cetak/{id}',        "HitungController@cetak");
 
 // api
 Route::get('/api2/pegawai/{id}',"ApiController@pegawai");

@@ -62,4 +62,11 @@ class HitungController extends Controller
         $pdf = PDF::loadView('hitung.cetak', compact("hitung"));
         return $pdf->stream('perhitungan.pdf');
     }
+
+    public function cetakSemua()
+    {
+        $hitungs = DB::table("hitung")->get();
+        $pdf = PDF::loadView('hitung.cetakSemua', compact("hitungs"));
+        return $pdf->stream('perhitunganSemua.pdf');
+    }
 }

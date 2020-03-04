@@ -26,6 +26,7 @@
                     <div class="card">
                       <div class="card-header">
                         <h4>Data perhitungan</h4>
+                          <a class="btn btn-info" href="{{ url("hitung/cetak_semua") }}">Cetak Semua</a>
                       </div>
                       <div class="card-body">
                         <div class="table-responsive">
