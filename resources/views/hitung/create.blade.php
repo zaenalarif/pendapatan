@@ -110,6 +110,28 @@
                               <label for="pph_21_tpp">PPH 21 TPP</label>
                               <input required id="pph_21_tpp" type="text" class="form-control" name="pph_21_tpp">
                           </div>
+
+                          {{-- edit --}}
+                          <div class="form-group col-12">
+                            <label for="tpp_netto">TPP NETTO</label>
+                            <input required id="tpp_netto" type="text" class="form-control" name="tpp_netto">
+                          </div>
+
+                          <div class="form-group col-12">
+                            <label for="jml_bruto">JUMLAH BRUTO</label>
+                            <input required id="jml_bruto" type="text" class="form-control" name="jml_bruto">
+                          </div>
+
+                          <div class="form-group col-12">
+                            <label for="jml_pph">JUMLAH PPH</label>
+                            <input required id="jml_pph" type="text" class="form-control" name="jml_pph">
+                          </div>
+
+                          <div class="form-group col-12">
+                            <label for="pendapatan_netto">PENDAPATAN NETTO</label>
+                            <input required id="pendapatan_netto" type="text" class="form-control" name="pendapatan_netto">
+                          </div>
+
                           </div>
                       </div>
                   </div>
@@ -191,8 +213,6 @@
             $("#lw_pegawai").val(Math.round(result_lw_pe))
             $("#taperum").val(parseFloat(data.taperum.potongan))
             $("#gaji_netto").val(parseFloat(data.taperum.potongan) + Math.round(result_lw_pe))
-            $("#pph_21_tpp").val((parseFloat(data.golongan.persen) 
-                                * parseFloat(data.gajiPokok.gaji_pokok)))
 
           }).fail(function(err){
             console.log(err.statusText)
@@ -200,22 +220,64 @@
 
         })
 
-          $("#tak").change(function(){
-            var tg = $("#tak").val()
+        $("#tak").change(function(){
+          var tg = $("#tak").val()
 
-            var result_tpp = parseFloat($("#tunjangan_istri").val()) 
-                           + parseFloat($("#tunjangan_anak").val()) 
-                           + parseFloat($("#tunjangan_karir").val()) 
-                           + parseFloat($("#tunjangan_beras").val()) 
-                           + parseFloat($("#pph").val()) 
-                           + parseFloat($("#tak").val())
-            
-            $("#tpp").val(result_tpp)
-            var pph_21_tpp = parseFloat($("#pph_21_tpp").val())
-            var result_tpp_metto  = result_tpp - pph_21_tpp
+          var result_tpp = parseFloat($("#tunjangan_istri").val()) 
+                          + parseFloat($("#tunjangan_anak").val()) 
+                          + parseFloat($("#tunjangan_karir").val()) 
+                          + parseFloat($("#tunjangan_beras").val()) 
+                          + parseFloat($("#pph").val()) 
+                          + parseFloat($("#tak").val())
+          
+          // $("#tpp").val(result_tpp)
 
-            $("#penerimaan_total").val(result_tpp_metto)
-          })
+          $("#pendapatan_netto").val(
+            parseFloat(result_tpp) - (  parseFloat($("#pph").val()) - 
+                                        parseFloat($("#tak").val()) - 
+                                        parseFloat($("#lw_pegawai").val()) -
+                                        parseFloat($("#taperum").val())
+                                        )
+          );
+
+        })
+
+        $("#tpp").change(function(){
+          let     bruto   = parseFloat($("#tunjangan_istri").val()) 
+                          + parseFloat($("#tunjangan_anak").val()) 
+                          + parseFloat($("#tunjangan_karir").val()) 
+                          + parseFloat($("#tunjangan_beras").val()) 
+                          + parseFloat($("#pph").val()) 
+                          + parseFloat($("#tak").val())
+          
+          $("#jml_bruto").val(bruto);
+        })
+
+        $("#pph_21_tpp").change(function(){
+
+          $("#tpp_netto").val(
+            parseFloat($("#tpp").val()) * 0.15
+          );
+
+          $("#jml_pph").val(
+            parseFloat($("#pph_21_tpp").val()) + parseFloat($("#pph").val())
+          );
+
+
+          var result_tpp = parseFloat($("#tunjangan_istri").val()) 
+                          + parseFloat($("#tunjangan_anak").val()) 
+                          + parseFloat($("#tunjangan_karir").val()) 
+                          + parseFloat($("#tunjangan_beras").val()) 
+                          + parseFloat($("#pph").val()) 
+                          + parseFloat($("#tak").val())
+
+          var pph_21_tpp = parseFloat($("#pph_21_tpp").val())
+          var result_tpp_metto  = parseFloat(result_tpp) - parseFloat(pph_21_tpp)
+
+          $("#penerimaan_total").val(result_tpp_metto)
+
+        });
+        
 
     })
     </script>
